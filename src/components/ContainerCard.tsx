@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import ToDoComponent from './todoCard'
+import ToDoComponent from './TodoCard'
 import InProgress from './InProgressCard'
 import DoneCard from './DoneCard'
 
