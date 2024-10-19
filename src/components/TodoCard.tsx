@@ -9,22 +9,32 @@ type TtoDo = {
   toDoList: Array<ToDo>
   isClicked: boolean
   setTodoList: Dispatch<SetStateAction<ToDo[]>>
-  setDoneList: Dispatch<SetStateAction<ToDo[]>>
   setTodo: Dispatch<SetStateAction<string>>
   setIsClicked: any
 }
+
+const dragEnter = () => {}
+
+const dragOver = () => {
+  const draggerZones = document.querySelector('.draggerZoneToDo')
+  const card = document.querySelector('.isDragging')
+  if (card) draggerZones?.appendChild(card)
+}
+
+const dragLeave = () => {}
+
+const drop = () => {}
 
 const ToDoComponent = ({
   toDo,
   toDoList,
   isClicked,
   setTodoList,
-  setDoneList,
   setTodo,
   setIsClicked,
 }: TtoDo) => {
   return (
-    <div className="min-h-[300px] min-w-[500px] gap-2 flex flex-col justify-normal p-2 rounded bg-[#EBECF0] relative">
+    <div className="min-h-[350px] w-[350px] gap-2 flex flex-col justify-normal p-2 rounded bg-[#EBECF0] relative">
       <div className="flex items-center gap-[0.2rem] p-2">
         <h3 className="font-bold text-lg">To</h3>
         <h3 className="font-bold text-lg">Do</h3>
@@ -38,9 +48,15 @@ const ToDoComponent = ({
           isDone={isDone}
           list={toDoList}
           setList={setTodoList}
-          setDoneList={setDoneList}
         />
       ))}
+      <div
+        className="draggerZoneToDo inline-flex flex-col gap-2 flex-1"
+        onDragEnter={() => dragEnter()}
+        onDragOver={() => dragOver()}
+        onDragLeave={() => dragLeave()}
+        onDrop={() => drop()}
+      />
 
       <button
         className="mt-auto flex items-center w-fit border-none gap-4 py-[0.62rem] px-4"
@@ -81,6 +97,20 @@ const ToDoComponent = ({
             }}
           >
             Add
+          </button>
+          <button
+            className="w-full font-bold p-2 bg-red-500 disabled:bg-slate-600 text-lg rounded-md hover:bg-red-600 transition-colors duration-200"
+            onClick={() => {
+              // setTodoList((prev: any) => [
+              //   ...prev,
+              //   { text: toDo, id: uuidv4(), isDone: false },
+              // ])
+              setTodo('')
+              setIsClicked(!isClicked)
+              window.scrollTo(0, 0)
+            }}
+          >
+            Back
           </button>
         </div>
       )}

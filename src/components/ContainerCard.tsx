@@ -8,19 +8,17 @@ import DoneCard from './DoneCard'
 export type ToDo = {
   text: string
   id: string
+  isDragged: boolean
   isDone: boolean
 }
 
 export function ContainerCard() {
   const [isClicked, setIsClicked] = useState<boolean>(false)
-  const [isClickedInProgress, setIsClickedInProgress] = useState<boolean>(false)
   const [toDo, setTodo] = useState<string>('')
   const [toDoList, setTodoList] = useState<ToDo[]>([])
-  const [inProgressList, setInProgress] = useState<ToDo[]>([])
-  const [doneList, setDoneList] = useState<ToDo[]>([])
 
   return (
-    <section className="mt-6 w-full flex justify-center items-center gap-6 flex-wrap">
+    <section className="mt-auto w-full flex justify-center items-start gap-6 flex-wrap">
       <ToDoComponent
         toDoList={toDoList}
         isClicked={isClicked}
@@ -28,20 +26,11 @@ export function ContainerCard() {
         setIsClicked={setIsClicked}
         setTodo={setTodo}
         toDo={toDo}
-        setDoneList={setDoneList}
       />
 
-      <InProgress
-        inProgressList={inProgressList}
-        isClickedInProgress={isClickedInProgress}
-        setDoneList={setDoneList}
-        setInProgress={setInProgress}
-        setIsClickedInProgress={setIsClickedInProgress}
-        setTodoList={setDoneList}
-        toDoList={toDoList}
-      />
+      <InProgress setTodoList={setTodoList} toDoList={toDoList} />
 
-      <DoneCard doneList={doneList} setDoneList={setDoneList} />
+      <DoneCard />
     </section>
   )
 }
